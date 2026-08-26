@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@700;900&family=Marcellus+SC&family=JetBrains+Mono:wght@500&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 :root{--void:#07080B !important;--stone:#13141A !important;--stone-2:#1B1D24 !important;--stone-3:#242734 !important;--crimson:#E62E2E !important;--crimson-dark:#7A0B0B !important;--crimson-glow:#FF3B1F !important;--soul-orange:#FF6A00 !important;--soul-gold:#FFB347 !important;--gold:#C9A86A !important;--gold-dim:#8C6A2F !important;--gold-dark:#5A3E1B !important;--text:#E8E0C8 !important;--text-dim:#9A958A !important;--border:rgba(201,168,106,0.32) !important;--animate-duration:1s !important}
 html{scrollbar-color:var(--gold-dim) #07080B !important}
 html,body{margin:0 !important;padding:0 !important;background:var(--void) !important;color:var(--text) !important;font-family:"Marcellus SC","Cinzel",serif !important;font-size:13px !important;min-height:100% !important;overflow-x:hidden !important}
@@ -13,6 +12,15 @@ main::before{content:"" !important;position:fixed !important;inset:-18% !importa
 @keyframes bgDrift1{0%{background-position:0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0}100%{background-position:0 -340px,84px -420px,-76px -380px,45px -600px,-92px -460px,72px -720px,-40px -400px,64px -640px}}
 @keyframes bgDrift2{0%{background-position:0 0,0 0,0 0,0 0}100%{background-position:-52px -520px,61px -610px,-35px -700px,86px -860px}}
 @keyframes emberTwinkle{0%{opacity:0.72}100%{opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeInDown{from{opacity:0;transform:translate3d(0,-100%,0)}to{opacity:1;transform:none}}
+@keyframes fadeInUp{from{opacity:0;transform:translate3d(0,100%,0)}to{opacity:1;transform:none}}
+@keyframes pulse{from{transform:scale3d(1,1,1)}50%{transform:scale3d(1.05,1.05,1.05)}to{transform:scale3d(1,1,1)}}
+@keyframes flash{0%,50%,100%{opacity:1}25%,75%{opacity:0}}
+@keyframes heartBeat{0%{transform:scale(1)}14%{transform:scale(1.3)}28%{transform:scale(1)}42%{transform:scale(1.3)}70%{transform:scale(1)}}
+@keyframes headShake{0%{transform:translateX(0)}6.5%{transform:translateX(-6px) rotateY(-9deg)}18.5%{transform:translateX(5px) rotateY(7deg)}31.5%{transform:translateX(-3px) rotateY(-5deg)}43.5%{transform:translateX(2px) rotateY(3deg)}50%{transform:translateX(0)}}
+@keyframes shakeX{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}30%,50%,70%{transform:translateX(-4px)}40%,60%{transform:translateX(4px)}}
+@keyframes zoomIn{from{opacity:0;transform:scale3d(.3,.3,.3)}50%{opacity:1}}
 a,button{cursor:pointer !important}
 ::selection{background:var(--crimson) !important;color:#fff !important}
 header{position:sticky !important;top:0 !important;z-index:50 !important;background:linear-gradient(180deg,#1A1D24 0%,#0F1116 100%) !important;border-bottom:2px solid var(--gold-dim) !important;box-shadow:0 8px 28px rgba(0,0,0,0.9),0 1px 0 rgba(201,168,106,0.18) inset !important;animation:fadeInDown 0.8s both !important}
