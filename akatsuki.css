@@ -1,0 +1,459 @@
+/* ============================================================
+   AKATSUKI — 暁
+   Fresh rebuild. No palette swap.
+   Background: akatsuki.jpg (cinematic fixed)
+   Mood: S-rank file / black cloak / red cloud / blood moon
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Shippori+Mincho:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root{
+  --black:#050508;
+  --black-2:#0A0A0F;
+  --black-3:#151019;
+  --surface:rgba(14,12,16,0.84);
+  --surface-2:rgba(20,14,18,0.92);
+  --line:rgba(255,26,26,0.22);
+  --line-strong:#FF1A1A;
+  --line-dim:rgba(255,26,26,0.14);
+  --cloud-red:#FF0A2A;
+  --cloud-red-dim:#8E0A14;
+  --moon:#FF2E2E;
+  --moon-glow:rgba(255,46,46,0.55);
+  --ink:#F2E9E9;
+  --ink-dim:#9A8F97;
+  --ink-faint:#6B6368;
+  --cloak-black:#08080A;
+  --selection:var(--cloud-red);
+}
+
+/* reset */
+*{box-sizing:border-box !important;border-radius:0 !important}
+html,body{margin:0 !important;padding:0 !important;background:var(--black) !important;color:var(--ink) !important;min-height:100% !important;overflow-x:hidden !important}
+html{scrollbar-color:var(--cloud-red) var(--black) !important}
+body{position:relative !important;background:transparent !important;font-family:"Inter",system-ui,sans-serif !important;font-size:13.5px !important;line-height:1.6 !important;cursor:default !important}
+
+/* ===== CINEMATIC BACKDROP ===== */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-5;
+  background:
+    url('akatsuki.jpg') center 32% / cover no-repeat fixed;
+  filter:brightness(0.82) contrast(1.12) saturate(1.02);
+  transform:scale(1);
+  animation:kenBurns 28s ease-in-out infinite alternate;
+  will-change:transform;
+}
+/* dark veil + red moon aura + vignette */
+body::after{
+  content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;
+  background:
+    radial-gradient(ellipse 720px 520px at 14% 18%, rgba(255,42,46,0.16), transparent 62%),
+    radial-gradient(ellipse 900px 700px at 85% 78%, rgba(8,4,8,0.55), transparent 60%),
+    linear-gradient(180deg, rgba(5,5,8,0.18) 0%, rgba(5,5,8,0.08) 28%, rgba(5,5,8,0.62) 72%, rgba(5,5,8,0.92) 100%),
+    radial-gradient(1200px 800px at 50% 50%, transparent 55%, rgba(0,0,0,0.72) 100%);
+}
+.bg-video-wrap,.bg-overlay,.bg-vignette,.soul-embers{display:none !important}
+
+/* ===== MOTION ===== */
+@keyframes kenBurns{0%{transform:scale(1)}100%{transform:scale(1.04)}}
+@keyframes moonPulse{0%,100%{opacity:0.95;filter:drop-shadow(0 0 8px rgba(255,46,46,0.85))}50%{opacity:1;filter:drop-shadow(0 0 16px rgba(255,46,46,1)) drop-shadow(0 0 28px rgba(255,26,26,0.45))}}
+@keyframes stitchShift{0%{background-position:0 0}100%{background-position:28px 0}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes cloudFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+::selection{background:var(--cloud-red) !important;color:#fff !important}
+a,button{cursor:pointer !important}
+
+/* ============================================================
+   HEADER — Cloak bar (totally new construction)
+   ============================================================ */
+header{
+  position:sticky !important;top:0 !important;z-index:50 !important;
+  background:rgba(6,6,10,0.92) !important;
+  backdrop-filter:blur(14px) saturate(1.15) !important;
+  border-bottom:none !important;
+  box-shadow:0 12px 40px rgba(0,0,0,0.85) !important;
+  animation:fadeDown 0.7s both !important;
+}
+header::after{
+  content:"" !important;position:absolute !important;left:0 !important;right:0 !important;bottom:0 !important;height:2px !important;
+  background:var(--line-strong) !important;z-index:2 !important;
+}
+header::before{
+  content:"" !important;position:absolute !important;left:0 !important;right:0 !important;bottom:2px !important;height:6px !important;
+  background:repeating-linear-gradient(90deg, transparent 0 8px, rgba(255,26,26,0.95) 8px 10px, transparent 10px 18px) !important;
+  opacity:0.9 !important;animation:stitchShift 1.2s linear infinite !important;
+  z-index:2 !important;
+}
+
+/* top row */
+header>div{
+  position:relative !important;
+  background:transparent !important;background-color:transparent !important;
+  padding:13px 20px 13px !important;
+  display:flex !important;align-items:center !important;gap:14px !important;
+  font-family:"Oswald",sans-serif !important;
+  font-size:22px !important;font-weight:700 !important;
+  letter-spacing:0.14em !important;text-transform:uppercase !important;
+  color:var(--ink) !important;
+  text-shadow:0 1px 10px rgba(0,0,0,1) !important;
+  animation:fadeIn 0.9s both 0.15s !important;
+  max-width:1120px !important;margin:0 auto !important;width:100% !important;
+}
+header>div a{color:inherit !important;text-decoration:none !important;display:flex !important;align-items:center !important;gap:12px !important}
+
+/* kanji mark — 暁 */
+header>div::before{
+  content:"暁" !important;
+  display:grid !important;place-items:center !important;
+  width:38px !important;height:38px !important;flex-shrink:0 !important;
+  background:var(--cloud-red) !important;
+  color:#fff !important;
+  font-family:"Shippori Mincho",serif !important;
+  font-size:19px !important;font-weight:800 !important;letter-spacing:0 !important;
+  line-height:1 !important;
+  border:1px solid rgba(255,255,255,0.14) !important;
+  box-shadow:0 0 0 1px rgba(0,0,0,1), 0 0 14px rgba(255,26,26,0.55), inset 0 1px 0 rgba(255,255,255,0.22) !important;
+  animation:cloudFloat 3s ease-in-out infinite !important;
+}
+header>div img{
+  width:36px !important;height:36px !important;
+  border:1px solid rgba(255,255,255,0.10) !important;
+  background:#000 !important;object-fit:cover !important;object-position:top !important;
+  filter:grayscale(0.25) contrast(1.15) brightness(0.92) !important;
+  box-shadow:0 0 0 1px rgba(0,0,0,1), 0 6px 14px rgba(0,0,0,0.6) !important;
+}
+header>div span{
+  color:var(--ink) !important;font-weight:700 !important;
+  position:relative !important;padding-right:10px !important;
+}
+header>div span::after{
+  content:"AKATSUKI" !important;
+  font-family:"JetBrains Mono",monospace !important;
+  font-size:8px !important;font-weight:700 !important;letter-spacing:0.32em !important;
+  color:var(--cloud-red) !important;
+  position:absolute !important;left:0 !important;top:100% !important;margin-top:-2px !important;
+  white-space:nowrap !important;
+}
+/* right side — S-rank file tag */
+header>div::after{
+  content:"S-RANK  \00B7  CRIMSON DAWN  \00B7  RED MOON" !important;
+  margin-left:auto !important;
+  font-family:"JetBrains Mono",monospace !important;
+  font-size:9px !important;font-weight:500 !important;
+  letter-spacing:0.22em !important;color:var(--ink-faint) !important;
+  border:1px solid rgba(255,255,255,0.08) !important;
+  padding:6px 10px !important;
+  background:rgba(255,255,255,0.03) !important;
+  white-space:nowrap !important;
+}
+
+/* ===== NAV — bingo book tabs ===== */
+header nav{
+  position:relative !important;
+  display:flex !important;align-items:center !important;gap:0 !important;
+  background:rgba(10,10,14,0.72) !important;background-color:transparent !important;
+  border:0 !important;border-top:1px solid rgba(255,255,255,0.06) !important;
+  border-bottom:1px solid rgba(255,255,255,0.04) !important;
+  padding:0 12px !important;
+  max-width:1120px !important;margin:0 auto !important;width:100% !important;
+  backdrop-filter:none !important;
+  overflow-x:auto !important;white-space:nowrap !important;
+  scrollbar-width:none !important;
+  animation:fadeIn 0.9s both 0.28s !important;
+}
+header nav::-webkit-scrollbar{display:none !important}
+header nav a, header nav button{
+  position:relative !important;
+  display:inline-flex !important;align-items:center !important;gap:6px !important;
+  background:transparent !important;
+  color:var(--ink-dim) !important;
+  border:0 !important;border-bottom:2px solid transparent !important;
+  padding:11px 16px 12px !important;
+  font-family:"Oswald",sans-serif !important;
+  font-size:11.5px !important;font-weight:500 !important;
+  letter-spacing:0.14em !important;text-transform:uppercase !important;
+  text-decoration:none !important;
+  white-space:nowrap !important;flex-shrink:0 !important;
+  transition:color 0.18s ease, border-color 0.18s ease, background 0.18s ease !important;
+}
+header nav a::before, header nav button::before{
+  content:"" !important;
+  position:absolute !important;left:50% !important;bottom:-2px !important;
+  width:0 !important;height:2px !important;
+  background:var(--cloud-red) !important;
+  transform:translateX(-50%) !important;
+  transition:width 0.22s ease !important;
+}
+header nav a:hover, header nav button:hover{
+  color:var(--ink) !important;
+  background:rgba(255,26,26,0.06) !important;
+}
+header nav a:hover::before, header nav button:hover::before{width:100% !important}
+
+/* ============================================================
+   MAIN — floating dossier
+   ============================================================ */
+main{
+  padding:28px 16px 36px !important;
+  background:transparent !important;
+  min-height:calc(100dvh - 112px) !important;
+}
+.profile-page{--profile-border:var(--cloud-red) !important;padding:0 !important;background:transparent !important}
+.profile-page[style]{--profile-border:var(--cloud-red) !important}
+
+/* dossier container — glass cloak */
+#wrap.profile-content{
+  max-width:1120px !important;width:100% !important;margin:0 auto !important;
+  display:grid !important;grid-template-columns:320px 1fr !important;gap:18px !important;
+  background:transparent !important;background-color:transparent !important;
+  border:0 !important;box-shadow:none !important;
+  animation:fadeUp 0.8s both 0.38s !important;
+  position:relative !important;
+}
+#wrap.profile-content[style]{border:0 !important}
+
+/* on mobile stack */
+@media(max-width:900px){#wrap.profile-content{grid-template-columns:1fr !important}}
+
+/* remove old corner brackets, add new */
+#wrap::before,#wrap::after{display:none !important}
+
+/* ============================================================
+   CARDS — obsidian file cards
+   ============================================================ */
+.border{
+  position:relative !important;overflow:hidden !important;
+  background:var(--surface) !important;background-color:var(--surface) !important;
+  backdrop-filter:blur(16px) saturate(1.15) !important;
+  border:1px solid rgba(255,255,255,0.07) !important;
+  border-top:1px solid rgba(255,26,26,0.32) !important;
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.72),
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 0 0 1px rgba(0,0,0,0.9) !important;
+  margin-bottom:0 !important;
+  animation:fadeUp 0.6s both !important;
+}
+.border[style]{border-color:rgba(255,255,255,0.07) !important}
+.border:nth-of-type(1){animation-delay:0.52s !important}
+.border:nth-of-type(2){animation-delay:0.60s !important}
+.border:nth-of-type(3){animation-delay:0.68s !important}
+.border:nth-of-type(4){animation-delay:0.76s !important}
+.border:nth-of-type(5){animation-delay:0.84s !important}
+.border:nth-of-type(6){animation-delay:0.92s !important}
+
+/* red top line + subtle cloud watermark */
+.border::before{
+  content:"" !important;
+  position:absolute !important;top:0 !important;left:0 !important;right:0 !important;height:1px !important;
+  background:linear-gradient(90deg, transparent, var(--cloud-red), transparent) !important;
+  opacity:0 !important;transition:opacity 0.25s ease !important;
+  pointer-events:none !important;
+}
+.border:hover::before{opacity:1 !important}
+.border::after{
+  content:"☁" !important;
+  position:absolute !important;right:10px !important;top:8px !important;
+  font-size:14px !important;color:rgba(255,26,26,0.14) !important;
+  pointer-events:none !important;transform:rotate(-8deg) !important;
+}
+
+/* ===== card header ===== */
+.box-title{
+  position:relative !important;
+  display:flex !important;align-items:center !important;gap:9px !important;
+  padding:12px 14px 10px !important;
+  background:rgba(8,8,12,0.96) !important;background-color:rgba(8,8,12,0.96) !important;
+  color:var(--ink) !important;
+  font-family:"Oswald",sans-serif !important;
+  font-size:11px !important;font-weight:700 !important;
+  letter-spacing:0.16em !important;text-transform:uppercase !important;
+  border:0 !important;border-bottom:1px solid rgba(255,255,255,0.06) !important;
+  border-left:2px solid var(--cloud-red) !important;
+}
+.box-title[style]{
+  background:rgba(8,8,12,0.96) !important;background-color:rgba(8,8,12,0.96) !important;
+  color:var(--ink) !important;
+}
+.box-title::before{
+  content:"" !important;
+  width:7px !important;height:7px !important;flex-shrink:0 !important;
+  background:var(--cloud-red) !important;
+  box-shadow:0 0 8px rgba(255,26,26,0.85) !important;
+  transform:rotate(45deg) !important;
+  animation:none !important;
+}
+/* kanji ghost behind title */
+.box-title::after{
+  content:"暁" !important;
+  position:absolute !important;right:12px !important;top:50% !important;transform:translateY(-50%) !important;
+  font-family:"Shippori Mincho",serif !important;
+  font-size:22px !important;font-weight:800 !important;
+  color:rgba(255,255,255,0.04) !important;
+  pointer-events:none !important;letter-spacing:0 !important;
+}
+
+.box-content{
+  background:transparent !important;background-color:transparent !important;
+  color:var(--ink) !important;
+  padding:14px !important;
+}
+.box-content[style]{background:transparent !important}
+.box-content p{color:var(--ink-dim) !important;line-height:1.7 !important}
+.box-content hr{border:0 !important;border-top:1px solid rgba(255,255,255,0.06) !important;margin:12px 0 !important}
+
+/* label */
+.label, label.label{
+  display:block !important;
+  font-family:"JetBrains Mono",monospace !important;
+  font-size:9px !important;font-weight:700 !important;
+  letter-spacing:0.18em !important;text-transform:uppercase !important;
+  color:var(--ink-faint) !important;
+  margin:10px 0 6px !important;
+}
+
+/* ===== images ===== */
+.profile-photo,.profile-friend-photo{
+  width:100% !important;aspect-ratio:1 !important;object-fit:cover !important;object-position:top !important;
+  border:1px solid rgba(255,255,255,0.08) !important;
+  box-shadow:0 12px 28px rgba(0,0,0,0.65) !important;
+  filter:grayscale(0.15) contrast(1.08) brightness(0.96) !important;
+  transition:filter 0.24s ease, border-color 0.24s ease, transform 0.24s ease !important;
+}
+.profile-photo:hover,.profile-friend-photo:hover{
+  filter:grayscale(0) contrast(1.12) brightness(1) !important;
+  border-color:rgba(255,26,26,0.45) !important;
+  transform:translateY(-1px) !important;
+}
+
+/* ===== inputs ===== */
+.input, textarea.input, .border input, .border select, .border textarea{
+  width:100% !important;
+  background:rgba(8,8,12,0.92) !important;
+  color:var(--ink) !important;
+  border:1px solid rgba(255,255,255,0.08) !important;
+  padding:9px 11px !important;
+  font-family:"JetBrains Mono",monospace !important;
+  font-size:12px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.02) !important;
+  outline:none !important;
+  transition:border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease !important;
+}
+.input:focus, textarea.input:focus, .border input:focus, .border select:focus, .border textarea:focus{
+  border-color:var(--cloud-red) !important;
+  box-shadow:0 0 0 3px rgba(255,26,26,0.18), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+  background:rgba(16,10,14,0.98) !important;
+}
+.input::placeholder, textarea::placeholder{color:var(--ink-faint) !important}
+select{appearance:none !important;background-image:linear-gradient(45deg, transparent 50%, var(--ink-faint) 50%), linear-gradient(135deg, var(--ink-faint) 50%, transparent 50%) !important;background-position: calc(100% - 14px) calc(50% - 2px), calc(100% - 9px) calc(50% - 2px) !important;background-size:5px 5px, 5px 5px !important;background-repeat:no-repeat !important;padding-right:28px !important}
+
+/* custom checkbox/radio */
+input[type="checkbox"], input[type="radio"]{accent-color:var(--cloud-red) !important}
+
+/* ===== tables ===== */
+table{width:100% !important;border-collapse:collapse !important}
+table td{color:var(--ink-dim) !important;font-size:12.5px !important;padding:7px 8px !important;border-bottom:1px solid rgba(255,255,255,0.04) !important}
+table td:first-child{
+  color:var(--ink-faint) !important;
+  font-family:"JetBrains Mono",monospace !important;
+  font-size:9px !important;font-weight:700 !important;letter-spacing:0.12em !important;text-transform:uppercase !important;
+  width:34% !important;white-space:nowrap !important;
+}
+
+/* ===== music player ===== */
+.profile-music-player{
+  border:1px solid rgba(255,255,255,0.07) !important;
+  border-left:2px solid var(--cloud-red) !important;
+  background:rgba(8,8,12,0.82) !important;
+  backdrop-filter:blur(10px) !important;
+  box-shadow:0 10px 24px rgba(0,0,0,0.55) !important;
+}
+
+/* ===== article / posts ===== */
+article{
+  background:rgba(14,12,16,0.72) !important;
+  border:1px solid rgba(255,255,255,0.06) !important;
+  padding:12px !important;
+  backdrop-filter:blur(8px) !important;
+}
+
+/* ===== buttons ===== */
+.btn{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;
+  font-family:"Oswald",sans-serif !important;
+  font-size:11px !important;font-weight:700 !important;
+  letter-spacing:0.14em !important;text-transform:uppercase !important;
+  padding:10px 18px !important;
+  background:var(--cloud-red) !important;
+  color:#fff !important;
+  border:1px solid var(--cloud-red) !important;
+  box-shadow:0 6px 18px rgba(255,26,26,0.35), inset 0 1px 0 rgba(255,255,255,0.18) !important;
+  transition:all 0.18s ease !important;
+  text-shadow:0 1px 0 rgba(0,0,0,0.35) !important;
+}
+.btn:hover{
+  background:#FF1F3A !important;
+  border-color:#FF1F3A !important;
+  box-shadow:0 8px 22px rgba(255,26,26,0.48), inset 0 1px 0 rgba(255,255,255,0.22) !important;
+  transform:translateY(-1px) !important;
+}
+.btn:active{transform:translateY(0) !important;filter:brightness(0.92) !important}
+/* danger = same red but with black text for hierarchy */
+.btn.btn-danger{
+  background:var(--cloud-red) !important;color:#fff !important;border-color:var(--cloud-red) !important;
+}
+.btn.btn-ghost,.btn-ghost{
+  background:transparent !important;
+  color:var(--ink) !important;
+  border:1px solid rgba(255,255,255,0.12) !important;
+  box-shadow:none !important;
+}
+.btn.btn-ghost:hover{
+  color:#fff !important;
+  border-color:var(--cloud-red) !important;
+  background:rgba(255,26,26,0.10) !important;
+  box-shadow:0 0 16px rgba(255,26,26,0.18) !important;
+}
+
+/* ===== footer ===== */
+footer{
+  margin-top:32px !important;
+  padding:18px 0 22px !important;
+  background:rgba(6,6,10,0.88) !important;
+  backdrop-filter:blur(10px) !important;
+  border-top:1px solid rgba(255,26,26,0.18) !important;
+  border-left:0 !important;border-right:0 !important;border-bottom:0 !important;
+  color:var(--ink-faint) !important;
+  font-family:"JetBrains Mono",monospace !important;
+  font-size:9.5px !important;letter-spacing:0.14em !important;text-transform:uppercase !important;
+  text-align:center !important;
+  animation:fadeIn 0.8s both 1.05s !important;
+}
+footer>div{max-width:1120px !important;margin:0 auto !important;padding:0 16px !important}
+footer a{color:var(--ink-dim) !important;text-decoration:none !important;border-bottom:1px solid rgba(255,26,26,0.28) !important;padding-bottom:1px !important;transition:color 0.18s ease !important}
+footer a:hover{color:var(--cloud-red) !important}
+
+/* ===== scrollbars ===== */
+::-webkit-scrollbar{width:10px !important;height:10px !important}
+::-webkit-scrollbar-track{background:var(--black) !important}
+::-webkit-scrollbar-thumb{background:var(--cloud-red) !important;border:1px solid rgba(0,0,0,0.9) !important}
+::-webkit-scrollbar-thumb:hover{background:#FF1F3A !important}
+
+/* ===== responsive ===== */
+@media(max-width:900px){
+  header>div::after{display:none !important}
+  header>div{font-size:18px !important}
+}
+@media(max-width:640px){
+  body::before{background-position:center 28% !important}
+  header>div{padding:11px 14px !important}
+  header>div::before{width:34px !important;height:34px !important;font-size:17px !important}
+  main{padding:16px 10px 24px !important}
+  #wrap.profile-content{gap:14px !important}
+  .box-title{font-size:10.5px !important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
+  body::before{animation:none !important}
+}
