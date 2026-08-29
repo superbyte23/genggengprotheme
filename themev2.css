@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Shojumaru&family=M+PLUS+Rounded+1c:wght@700;800;900&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@700;900&display=swap');
+
+:root{
+  --void:#0B0D14;
+  --stone:#141821;
+  --stone-2:#1C2030;
+  --stone-3:#252B3D;
+  --konoha-orange:#FF7A00;
+  --konoha-orange-light:#FF9D42;
+  --konoha-orange-dark:#E85D00;
+  --konoha-gold:#FFB627;
+  --chakra-blue:#2EA8FF;
+  --chakra-blue-dark:#0E4DA4;
+  --chakra-blue-glow:#5AC8FF;
+  --scroll:#FFF6DE;
+  --scroll-dim:#E8D9B0;
+  --scroll-dark:#C9B88A;
+  --ink:#FFFDF0;
+  --ink-dim:#A0AEC0;
+  --akatsuki:#C41E1E;
+  --leaf:#1B4332;
+  --border:rgba(255,122,0,0.32);
+  --border-blue:rgba(46,168,255,0.30);
+  --animate-duration:1s;
+}
+
+/* scrollbars */
+html{scrollbar-color:var(--konoha-orange) #0B0D14 !important}
+html,body{margin:0 !important;padding:0 !important;background:var(--void) !important;color:var(--ink) !important;font-family:"M PLUS Rounded 1c","Noto Sans JP",system-ui,sans-serif !important;font-size:13px !important;min-height:100% !important;overflow-x:hidden !important}
+*{box-sizing:border-box !important;border-radius:0 !important}
+html{position:relative !important;background:var(--void) !important}
+body{cursor:default !important;position:relative !important;overflow-x:hidden !important;background:transparent !important}
+
+/* ===== BACKGROUND: Konoha dusk + chakra + scroll texture ===== */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(ellipse 900px 500px at 70% -10%, rgba(255,122,0,0.18), transparent 65%),
+    radial-gradient(ellipse 700px 400px at 10% 0%, rgba(46,168,255,0.14), transparent 60%),
+    linear-gradient(180deg,#0F1420 0%, #0B0D14 45%, #12101A 100%);
+}
+body::after{
+  content:"";position:fixed;inset:-12%;z-index:30;pointer-events:none;opacity:0.92;
+  /* Falling Konoha leaves */
+  background-image:
+    radial-gradient(6px 10px at 18% 20%, rgba(255,122,0,0.95), transparent 70%),
+    radial-gradient(5px 9px at 42% 55%, rgba(34,139,34,0.85), transparent 70%),
+    radial-gradient(8px 11px at 67% 18%, rgba(255,182,39,0.90), transparent 70%),
+    radial-gradient(5px 8px at 84% 42%, rgba(46,168,255,0.70), transparent 70%),
+    radial-gradient(7px 10px at 33% 78%, rgba(255,122,0,0.88), transparent 70%),
+    radial-gradient(4px 7px at 92% 74%, rgba(34,139,34,0.75), transparent 70%),
+    radial-gradient(9px 12px at 55% 88%, rgba(255,157,66,0.82), transparent 70%),
+    radial-gradient(5px 8px at 10% 82%, rgba(255,246,222,0.85), transparent 70%);
+  background-size:380px 420px, 520px 520px, 440px 480px, 360px 400px, 500px 520px, 400px 440px, 460px 500px, 340px 380px;
+  background-repeat:repeat;
+  filter:blur(0.6px) drop-shadow(0 0 5px rgba(255,122,0,0.55));
+  animation:bgDrift1 28s linear infinite, leafTwinkle 3.2s ease-in-out infinite alternate;
+  will-change:background-position;
+}
+main::before{
+  content:"";position:fixed;inset:-18%;z-index:29;pointer-events:none;opacity:0.55;
+  background-image:
+    radial-gradient(10px 14px at 28% 28%, rgba(255,122,0,0.35), transparent 75%),
+    radial-gradient(9px 12px at 74% 58%, rgba(34,139,34,0.30), transparent 75%),
+    radial-gradient(7px 10px at 52% 12%, rgba(46,168,255,0.28), transparent 75%),
+    radial-gradient(6px 9px at 86% 86%, rgba(255,182,39,0.25), transparent 75%);
+  background-size:580px 600px, 640px 680px, 720px 760px, 880px 900px;
+  background-repeat:repeat;
+  filter:blur(1.4px);
+  animation:bgDrift2 36s linear infinite;
+}
+
+.bg-video-wrap,.bg-overlay,.bg-vignette,.soul-embers{display:none !important}
+
+/* ===== KEYFRAMES ===== */
+@keyframes bgDrift1{0%{background-position:0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0}100%{background-position:0 -420px, 78px -520px, -64px -480px, 38px -600px, -88px -520px, 66px -720px, -42px -500px, 58px -640px}}
+@keyframes bgDrift2{0%{background-position:0 0,0 0,0 0,0 0}100%{background-position:-48px -600px, 58px -680px, -32px -760px, 82px -900px}}
+@keyframes leafTwinkle{0%{opacity:0.72}100%{opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeInDown{from{opacity:0;transform:translate3d(0,-100%,0)}to{opacity:1;transform:none}}
+@keyframes fadeInUp{from{opacity:0;transform:translate3d(0,100%,0)}to{opacity:1;transform:none}}
+@keyframes pulse{from{transform:scale3d(1,1,1)}50%{transform:scale3d(1.05,1.05,1.05)}to{transform:scale3d(1,1,1)}}
+@keyframes chakraPulse{0%{box-shadow:0 0 8px rgba(46,168,255,0.45),0 0 16px rgba(255,122,0,0.25)}50%{box-shadow:0 0 14px rgba(46,168,255,0.75),0 0 26px rgba(255,122,0,0.40)}100%{box-shadow:0 0 8px rgba(46,168,255,0.45),0 0 16px rgba(255,122,0,0.25)}}
+@keyframes rasenganSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes sealGlow{0%,100%{opacity:0.9;text-shadow:0 0 8px rgba(255,122,0,0.9),0 0 18px rgba(255,122,0,0.5)}50%{opacity:1;text-shadow:0 0 12px rgba(255,122,0,1),0 0 28px rgba(255,122,0,0.7),0 0 36px rgba(46,168,255,0.35)}}
+@keyframes headShake{0%{transform:translateX(0)}6.5%{transform:translateX(-6px) rotateY(-9deg)}18.5%{transform:translateX(5px) rotateY(7deg)}31.5%{transform:translateX(-3px) rotateY(-5deg)}43.5%{transform:translateX(2px) rotateY(3deg)}50%{transform:translateX(0)}}
+@keyframes flash{0%,50%,100%{opacity:1}25%,75%{opacity:0}}
+@keyframes heartBeat{0%{transform:scale(1)}14%{transform:scale(1.3)}28%{transform:scale(1)}42%{transform:scale(1.3)}70%{transform:scale(1)}}
+
+a,button{cursor:pointer !important}
+::selection{background:var(--konoha-orange) !important;color:#0B0D14 !important}
+
+/* ===== HEADER: Konoha forehead protector ===== */
+header{
+  position:sticky !important;top:0 !important;z-index:50 !important;
+  background:linear-gradient(180deg,#1B2235 0%, #141A28 55%, #0F1420 100%) !important;
+  border-bottom:3px solid var(--konoha-orange) !important;
+  box-shadow:0 10px 32px rgba(0,0,0,0.92), 0 1px 0 rgba(255,182,39,0.18) inset, 0 -1px 0 rgba(46,168,255,0.12) inset !important;
+  animation:fadeInDown 0.8s both !important;
+}
+header>div{
+  position:relative !important;background:transparent !important;background-color:transparent !important;
+  color:#fff !important;padding:12px 20px 11px !important;display:flex !important;align-items:center !important;gap:12px !important;
+  font-family:"Bangers","Shojumaru",cursive !important;font-size:26px !important;font-weight:400 !important;
+  letter-spacing:0.06em !important;text-transform:uppercase !important;
+  text-shadow:0 2px 0 #0B0D14, 0 0 16px rgba(255,122,0,0.65), 0 0 32px rgba(46,168,255,0.25) !important;
+  animation:fadeIn 1s both !important;animation-delay:0.15s !important;
+}
+/* subtle plate highlight */
+header>div::before{
+  content:"" !important;position:absolute !important;inset:0 !important;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent) !important;
+  pointer-events:none !important;
+}
+header>div a{color:#fff !important;text-decoration:none !important;display:flex !important;align-items:center !important;gap:10px !important}
+header>div img{
+  width:38px !important;height:38px !important;
+  border:2px solid var(--konoha-orange) !important;
+  background:#0B0D14 !important;object-fit:cover !important;
+  box-shadow:0 0 0 2px rgba(46,168,255,0.35), 0 0 14px rgba(255,122,0,0.55) !important;
+  filter:contrast(1.1) saturate(1.05) !important;
+  animation:chakraPulse 2.6s ease-in-out infinite !important;
+}
+/* Konoha leaf symbol instead of diamond */
+header>div img + span, header>div span{
+  color:var(--konoha-orange-light) !important;
+  -webkit-text-stroke:1px rgba(11,13,20,0.85) !important;
+  text-shadow:0 2px 0 #0B0D14, 0 0 12px rgba(255,122,0,0.95), 0 0 26px rgba(255,122,0,0.45) !important;
+  animation:sealGlow 2.4s ease-in-out infinite !important;
+}
+header>div::after{
+  content:"木ノ葉隠れの里 \00B7 KONOHA \00B7 DATTEBAYO" !important;
+  margin-left:auto !important;
+  font-family:"JetBrains Mono",monospace !important;font-size:8.5px !important;
+  letter-spacing:0.28em !important;color:var(--scroll-dim) !important;opacity:0.92 !important;
+  border:1px solid rgba(255,122,0,0.28) !important;
+  border-left:3px solid var(--chakra-blue) !important;
+  padding:5px 10px !important;
+  background:linear-gradient(90deg,rgba(46,168,255,0.10),rgba(255,122,0,0.12)) !important;
+}
+
+/* ===== NAV: scroll / ninja tools bar ===== */
+header nav{
+  position:relative !important;display:flex !important;flex-wrap:nowrap !important;align-items:center !important;gap:3px !important;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,246,222,0.015) 0 2px, transparent 2px 6px),
+    linear-gradient(180deg,rgba(0,0,0,0.48),rgba(0,0,0,0.22)) !important;
+  background-color:transparent !important;
+  border:0 !important;border-top:1px solid rgba(255,122,0,0.16) !important;border-bottom:1px solid rgba(46,168,255,0.14) !important;
+  padding:6px 12px 7px !important;backdrop-filter:blur(7px) !important;overflow-x:auto !important;white-space:nowrap !important;
+  animation:fadeIn 0.9s both !important;animation-delay:0.3s !important;scrollbar-width:none !important;
+}
+header nav::-webkit-scrollbar{display:none !important}
+header nav a,header nav button{
+  display:inline-flex !important;align-items:center !important;gap:5px !important;
+  background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.015)) !important;
+  color:var(--ink-dim) !important;
+  border:1px solid rgba(255,122,0,0.10) !important;border-bottom-color:transparent !important;
+  padding:6px 14px 7px !important;
+  font-family:"M PLUS Rounded 1c","Noto Sans JP",sans-serif !important;font-size:11px !important;font-weight:800 !important;
+  letter-spacing:0.11em !important;text-transform:uppercase !important;text-decoration:none !important;
+  white-space:nowrap !important;flex-shrink:0 !important;transition:all 0.18s ease !important;
+}
+header nav a:hover,header nav button:hover{
+  background:linear-gradient(180deg,rgba(255,122,0,0.18),rgba(255,122,0,0.07)) !important;
+  color:var(--scroll) !important;
+  border-color:rgba(255,122,0,0.32) !important;border-bottom-color:var(--chakra-blue) !important;
+  text-shadow:0 0 8px rgba(255,122,0,0.7) !important;transform:translateY(-1px) !important;
+  box-shadow:0 4px 12px rgba(0,0,0,0.4), 0 0 10px rgba(46,168,255,0.18) !important;
+}
+
+/* ===== MAIN ===== */
+main{padding:8px 0 18px !important;background:transparent !important;min-height:calc(100dvh - 155px) !important}
+.profile-page{--profile-border:var(--konoha-orange) !important;padding:8px 0 !important;background:transparent !important}
+.profile-page[style]{--profile-border:var(--konoha-orange) !important}
+
+/* ===== WRAP: Summoning Scroll ===== */
+#wrap.profile-content{
+  max-width:960px !important;width:100% !important;margin:auto !important;
+  background:
+    radial-gradient(ellipse 600px 220px at 50% 0%, rgba(255,122,0,0.08), transparent 70%),
+    linear-gradient(180deg,rgba(26,31,48,0.98) 0%, rgba(20,24,33,0.99) 100%) !important;
+  background-color:transparent !important;
+  border:1px solid rgba(255,122,0,0.26) !important;
+  border-top:3px solid var(--konoha-orange) !important;
+  box-shadow:0 0 0 1px rgba(0,0,0,1), 0 18px 48px rgba(0,0,0,0.82), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 28px rgba(255,122,0,0.10), 0 0 22px rgba(46,168,255,0.07) !important;
+  position:relative !important;animation:fadeInUp 0.82s both !important;animation-delay:0.4s !important;
+}
+#wrap.profile-content[style]{border-color:rgba(255,122,0,0.28) !important}
+/* scroll corner seals */
+#wrap::before,#wrap::after{
+  content:"" !important;position:absolute !important;width:18px !important;height:18px !important;
+  border-color:var(--konoha-orange) !important;border-style:solid !important;pointer-events:none !important;z-index:1 !important;
+}
+#wrap::before{top:-1px !important;left:-1px !important;border-width:3px 0 0 3px !important;box-shadow:-4px -4px 12px rgba(255,122,0,0.22) !important}
+#wrap::after{top:-1px !important;right:-1px !important;border-width:3px 3px 0 0 !important;box-shadow:4px -4px 12px rgba(46,168,255,0.18) !important}
+
+/* ===== CARDS: Ninja file ===== */
+.border{
+  border:1px solid rgba(255,122,0,0.18) !important;
+  border-left:2px solid rgba(46,168,255,0.28) !important;
+  background:linear-gradient(180deg,rgba(37,41,61,0.94) 0%, rgba(28,32,48,0.98) 100%) !important;
+  background-color:transparent !important;
+  margin-bottom:12px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 6px 20px rgba(0,0,0,0.48), 0 0 0 1px rgba(0,0,0,0.55) !important;
+  position:relative !important;overflow:hidden !important;animation:fadeInUp 0.6s both !important;
+}
+.border[style]{border-color:rgba(255,122,0,0.20) !important}
+.border:nth-of-type(1){animation-delay:0.55s !important}.border:nth-of-type(2){animation-delay:0.65s !important}.border:nth-of-type(3){animation-delay:0.75s !important}.border:nth-of-type(4){animation-delay:0.85s !important}.border:nth-of-type(5){animation-delay:0.95s !important}.border:nth-of-type(6){animation-delay:1.05s !important}
+.border::before{
+  content:"" !important;position:absolute !important;top:0 !important;left:0 !important;right:0 !important;height:2px !important;
+  background:linear-gradient(90deg,transparent, var(--konoha-orange), var(--chakra-blue), transparent) !important;
+  pointer-events:none !important;opacity:0.85 !important;
+}
+
+/* ===== TITLES: Hokage style ===== */
+.box-title{
+  font-family:"Bangers",cursive !important;
+  font-size:13px !important;font-weight:400 !important;letter-spacing:0.10em !important;text-transform:uppercase !important;
+  padding:9px 10px 8px !important;display:flex !important;align-items:center !important;gap:8px !important;
+  border:0 !important;border-bottom:1px solid rgba(255,122,0,0.18) !important;border-left:4px solid var(--konoha-orange) !important;
+  text-shadow:0 1px 0 rgba(0,0,0,0.85), 0 0 10px rgba(255,122,0,0.35) !important;
+}
+.box-title[style]{
+  background:linear-gradient(90deg,#1E2436 0%, #252E4A 100%) !important;background-color:transparent !important;
+  color:var(--scroll) !important;
+}
+/* Sharingan / leaf icon */
+.box-title::before{
+  content:"\2618" !important; /* shamrock ~ leaf */
+  color:var(--konoha-orange) !important;font-size:13px !important;
+  text-shadow:0 0 7px rgba(255,122,0,0.95), 0 0 12px rgba(46,168,255,0.35) !important;
+  animation:pulse 2s ease-in-out infinite !important;
+  font-family:serif !important;
+}
+.box-content{background:transparent !important;background-color:transparent !important;color:var(--ink) !important;padding:8px 10px !important}
+.box-content[style]{background:transparent !important;background-color:transparent !important}
+.box-content p{color:var(--ink-dim) !important}
+
+.profile-photo,.profile-friend-photo{
+  border:2px solid rgba(255,122,0,0.32) !important;
+  box-shadow:0 0 0 2px rgba(46,168,255,0.22), 0 8px 20px rgba(0,0,0,0.60) !important;
+  filter:contrast(1.06) saturate(1.04) !important;transition:all 0.2s ease !important;
+}
+.profile-photo:hover,.profile-friend-photo:hover{
+  border-color:var(--konoha-orange) !important;
+  box-shadow:0 0 0 2px rgba(46,168,255,0.40), 0 0 18px rgba(255,122,0,0.42) !important;
+}
+
+/* ===== BUTTONS: Rasengan + Kunai ===== */
+.btn{
+  font-family:"M PLUS Rounded 1c","Noto Sans JP",sans-serif !important;
+  font-size:11px !important;font-weight:900 !important;letter-spacing:0.12em !important;text-transform:uppercase !important;
+  padding:8px 18px 9px !important;
+  background:linear-gradient(180deg, #FF8C1A 0%, #E85D00 55%, #C44A00 100%) !important;
+  color:#fff !important;
+  border:1px solid var(--konoha-gold) !important;border-top-color:rgba(255,255,255,0.22) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), 0 3px 12px rgba(0,0,0,0.55), 0 0 0 2px rgba(46,168,255,0.14), 0 0 14px rgba(255,122,0,0.22) !important;
+  text-shadow:0 1px 2px rgba(0,0,0,0.9) !important;transition:all 0.18s ease !important;
+}
+.btn:hover{
+  background:linear-gradient(180deg, #FFA033 0%, #FF7A00 100%) !important;
+  border-color:#FFE08A !important;
+  box-shadow:0 0 18px rgba(255,122,0,0.45), 0 0 0 2px rgba(46,168,255,0.22) !important;
+  transform:translateY(-1px) !important;
+}
+.btn:active{transform:translateY(0) !important;filter:brightness(0.94) !important}
+.btn.btn-ghost,.btn-ghost{
+  background:rgba(0,0,0,0.30) !important;color:var(--ink-dim) !important;
+  border:1px solid rgba(255,122,0,0.20) !important;border-left:2px solid rgba(46,168,255,0.35) !important;
+  box-shadow:none !important;
+}
+.btn.btn-ghost:hover{
+  color:var(--scroll) !important;border-color:var(--konoha-orange) !important;
+  background:rgba(255,122,0,0.14) !important;box-shadow:0 0 12px rgba(46,168,255,0.18) !important;
+}
+
+/* chakra input focus */
+.input,textarea.input{
+  width:100% !important;
+  background:linear-gradient(180deg,#0D0F18 0%, #161A2A 100%) !important;
+  color:var(--scroll) !important;
+  border:1px solid rgba(255,122,0,0.18) !important;
+  border-left:2px solid rgba(46,168,255,0.28) !important;
+  padding:7px 9px !important;font-family:"JetBrains Mono",monospace !important;font-size:12px !important;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,0.55) !important;
+}
+.input:focus,textarea.input:focus{
+  border-color:var(--chakra-blue) !important;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,0.55), 0 0 0 2px rgba(46,168,255,0.22), 0 0 14px rgba(255,122,0,0.18) !important;
+  animation:headShake 0.35s both !important;
+}
+
+table td{color:var(--ink-dim) !important;font-size:12px !important}
+table td:first-child{
+  color:var(--konoha-orange-light) !important;
+  font-family:"Bangers",cursive !important;font-size:11px !important;
+  letter-spacing:0.06em !important;text-transform:uppercase !important;
+}
+.profile-music-player{
+  border:1px solid rgba(255,122,0,0.22) !important;
+  border-left:3px solid var(--chakra-blue) !important;
+  background:linear-gradient(180deg,#161A2A,#0F111E) !important;
+  box-shadow:0 6px 18px rgba(0,0,0,0.45), 0 0 12px rgba(255,122,0,0.10) !important;
+}
+article{border-color:rgba(46,168,255,0.20) !important}
+
+footer{
+  margin-top:16px !important;padding:14px 0 !important;
+  background:linear-gradient(180deg,#141A28,#0B0D14) !important;
+  border-top:2px solid var(--konoha-orange) !important;border-left:0 !important;border-right:0 !important;border-bottom:0 !important;
+  color:var(--ink-dim) !important;
+  font-family:"JetBrains Mono",monospace !important;font-size:10px !important;letter-spacing:0.07em !important;text-transform:uppercase !important;
+  animation:fadeIn 0.8s both !important;animation-delay:1.1s !important;
+}
+footer>div{max-width:960px !important}
+footer a{color:var(--konoha-orange-light) !important}
+footer a:hover{color:var(--chakra-blue-glow) !important}
+
+::-webkit-scrollbar{width:14px !important;height:14px !important}
+::-webkit-scrollbar-track{background:#0B0D14 !important;border-left:1px solid rgba(255,122,0,0.10) !important}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#2A324E,#1C2030) !important;
+  border:1px solid rgba(255,122,0,0.24) !important;
+  border-left:2px solid rgba(46,168,255,0.28) !important;
+}
+::-webkit-scrollbar-thumb:hover{border-color:var(--konoha-orange) !important}
+
+@media(max-width:640px){
+  header>div{font-size:19px !important;padding:10px 12px !important}
+  header>div::after{display:none !important}
+  main{padding:4px 0 !important}
+  #wrap.profile-content{border-left:0 !important;border-right:0 !important}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
